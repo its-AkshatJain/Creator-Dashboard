@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import connectDB from './config/dbConnect.js'; // <-- import dbConnect
 import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js"
+import feedRoutes from './routes/feedRoutes.js';
 import cors from "cors";
  
 // Initialize environment variables
@@ -37,6 +39,8 @@ app.get('/api', (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
+app.use('/api/feed', feedRoutes);
 
 // Start the server
 app.listen(PORT, () => {

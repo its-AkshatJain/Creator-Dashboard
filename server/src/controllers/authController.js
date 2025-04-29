@@ -35,6 +35,19 @@ const login = async(req, res) =>{
             .json({message: `Invalid credential`});
         }
 
+        const today = new Date();
+        const lastLoginDate = user.lastLogin ? new Date(user.lastLogin) : null;
+        const isSameDay = lastLoginDate &&
+        today.getFullYear() === lastLoginDate.getFullYear() &&
+        today.getMonth() === lastLoginDate.getMonth() &&
+        today.getDate() === lastLoginDate.getDate();
+
+        if (!isSameDay) {
+        user.credits += 5; // 🎉 Award daily login credits
+        user.lastLogin = today;
+        await user.save();
+        }
+
         const token = jwt.sign({id: user._id, role: user.role}, 
             process.env.JWT_SECRET,
             {expiresIn: "1h"}

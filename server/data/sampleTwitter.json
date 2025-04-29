@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1512345678901234567",
+    "platform": "Twitter",
+    "name": "Elon Musk",
+    "content": "Invited to speak at the AI summit next week. Looking forward to sharing our latest developments 🚀",
+    "created_at": "2025-04-29T09:15:23Z",
+    "profile_image_url": "/avatars/elon.png",
+    "url": "https://twitter.com/elonmusk/status/1512345678901234567",
+    "metrics": {
+      "like_count": 12450,
+      "reply_count": 842,
+      "retweet_count": 3021
+    }
+  },
+  {
+    "id": "1512346789012345678",
+    "platform": "Twitter",
+    "name": "Satya Nadella",
+    "content": "Proud of the team for launching our new cloud AI service today. The future is here 💡",
+    "created_at": "2025-04-28T18:42:10Z",
+    "profile_image_url": "/avatars/satya.png",
+    "url": "https://twitter.com/satyanadella/status/1512346789012345678",
+    "metrics": {
+      "like_count": 8400,
+      "reply_count": 530,
+      "retweet_count": 1750
+    }
+  },
+  {
+    "id": "1512347890123456789",
+    "platform": "Twitter",
+    "name": "Linus Torvalds",
+    "content": "Merged the new kernel patches, performance improvements look great. Thank you to all contributors 👍",
+    "created_at": "2025-04-28T12:05:47Z",
+    "profile_image_url": "/avatars/linus.png",
+    "url": "https://twitter.com/linustorvalds/status/1512347890123456789",
+    "metrics": {
+      "like_count": 3200,
+      "reply_count": 210,
+      "retweet_count": 890
+    }
+  },
+  {
+    "id": "1512348901234567890",
+    "platform": "Twitter",
+    "name": "Ann Applebaum",
+    "content": "Just published my latest article on the intersection of technology and democracy. Would love your thoughts!",
+    "created_at": "2025-04-27T22:14:30Z",
+    "profile_image_url": "/avatars/ann.png",
+    "url": "https://twitter.com/anneapplebaum/status/1512348901234567890",
+    "metrics": {
+      "like_count": 1120,
+      "reply_count": 95,
+      "retweet_count": 340
+    }
+  },
+  {
+    "id": "1512349012345678901",
+    "platform": "Twitter",
+    "name": "TechCrunch",
+    "content": "Breaking: Startup XYZ raises $50M to build biodegradable electronics – a game changer for sustainable tech 🌱",
+    "created_at": "2025-04-27T15:37:02Z",
+    "profile_image_url": "/avatars/techcrunch.png",
+    "url": "https://twitter.com/techcrunch/status/1512349012345678901",
+    "metrics": {
+      "like_count": 5400,
+      "reply_count": 410,
+      "retweet_count": 1200
+    }
+  },
+  {
+    "id": "1512350123456789012",
+    "platform": "Twitter",
+    "name": "NASA",
+    "content": "Our Perseverance rover just snapped a new high-res panorama of Olympus Mons. Stunning views from Mars! 🪐",
+    "created_at": "2025-04-26T08:50:11Z",
+    "profile_image_url": "/avatars/nasa.png",
+    "url": "https://twitter.com/nasa/status/1512350123456789012",
+    "metrics": {
+      "like_count": 15200,
+      "reply_count": 980,
+      "retweet_count": 4300
+    }
+  },
+  {
+    "id": "1512351234567890123",
+    "platform": "Twitter",
+    "name": "Tim Cook",
+    "content": "Excited to unveil our new AR glasses tomorrow. The boundary between digital and real is about to vanish. #AppleEvent",
+    "created_at": "2025-04-25T20:05:55Z",
+    "profile_image_url": "/avatars/tim.png",
+    "url": "https://twitter.com/tim_cook/status/1512351234567890123",
+    "metrics": {
+      "like_count": 9800,
+      "reply_count": 740,
+      "retweet_count": 2100
+    }
+  },
+  {
+    "id": "1512352345678901234",
+    "platform": "Twitter",
+    "name": "The Verge",
+    "content": "Hands-on with the new Galaxy X smartphone: battery life is impressive, but the hinge still needs work. Full review soon!",
+    "created_at": "2025-04-25T13:22:44Z",
+    "profile_image_url": "/avatars/verge.png",
+    "url": "https://twitter.com/verge/status/1512352345678901234",
+    "metrics": {
+      "like_count": 4300,
+      "reply_count": 310,
+      "retweet_count": 870
+    }
+  },
+  {
+    "id": "1512353456789012345",
+    "platform": "Twitter",
+    "name": "Linode",
+    "content": "Our new data center in India is now live! Bringing lower latency and better performance to developers across the region.",
+    "created_at": "2025-04-24T17:15:30Z",
+    "profile_image_url": "/avatars/linode.png",
+    "url": "https://twitter.com/linode/status/1512353456789012345",
+    "metrics": {
+      "like_count": 2700,
+      "reply_count": 180,
+      "retweet_count": 620
+    }
+  },
+  {
+    "id": "1512354567890123456",
+    "platform": "Twitter",
+    "name": "Glenn Greenwald",
+    "content": "In today’s op-ed I explore the implications of AI surveillance – and why we must legislate ethical guardrails now. #Privacy",
+    "created_at": "2025-04-24T10:03:12Z",
+    "profile_image_url": "/avatars/glenn.png",
+    "url": "https://twitter.com/ggreenwald/status/1512354567890123456",
+    "metrics": {
+      "like_count": 1850,
+      "reply_count": 125,
+      "retweet_count": 460
+    }
+  }
+]
