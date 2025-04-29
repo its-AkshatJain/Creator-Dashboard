@@ -4,6 +4,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import AdminPanel from "./pages/AdminPanel"; 
 import Profile from "./pages/Profile"; 
+import Saved     from "./pages/Saved";
+import Reported  from "./pages/Reported";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute"; 
@@ -12,6 +14,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Import Navbar
 import Navbar from "./components/Navbar.jsx";
+import Feed from "./pages/Feed.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   return (
@@ -26,8 +30,11 @@ function App() {
 
         {/* Protected User Routes */}
         <Route element={<ProtectedRoute />}>
+          <Route path="/feed" element={<Feed />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} /> 
+          <Route path="/saved"     element={<Saved />} />
+         <Route path="/reported"  element={<Reported />} />
         </Route>
 
         {/* Protected Admin Routes */}
@@ -36,6 +43,7 @@ function App() {
         </Route>
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />
+      <Footer />
     </Router>
   );
 }

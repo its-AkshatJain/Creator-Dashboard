@@ -1,7 +1,14 @@
 import express from "express";
 import verifyToken from "../middlewares/authMiddleware.js"
 import authorizeRoles from "../middlewares/roleMiddleware.js"
-import { updateProfileField, getProfile } from "../controllers/userController.js";
+import {
+    updateProfileField,
+    getProfile,
+    savePost,
+    reportPost,
+    getSavedPosts,
+    getReportedPosts
+  } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -19,5 +26,12 @@ router.get("/user", verifyToken, authorizeRoles("admin", "user"), (req, res) => 
 router.post("/update-profile", verifyToken, updateProfileField);
 
 router.get("/me", verifyToken, getProfile);
+
+// Save & report
+router.post("/save",   verifyToken, savePost);
+router.post("/report", verifyToken, reportPost);
+
+router.get("/saved",    verifyToken, getSavedPosts);
+router.get("/reported", verifyToken, getReportedPosts);
 
 export default router;
