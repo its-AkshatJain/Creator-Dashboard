@@ -353,138 +353,139 @@ export default function Feed() {
           <AnimatePresence>
             {loadedPosts.map((post) => (
               <motion.div
-                key={post.uniqueId}
-                layoutId={post.uniqueId}
-                variants={cardVariants}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className={`backdrop-blur-lg rounded-xl overflow-hidden ${
-                  darkMode 
-                    ? "bg-gray-800/40 border border-gray-700/50 shadow-lg shadow-black/20" 
-                    : "bg-white/40 border border-white/50 shadow-lg shadow-blue-100/30"
-                } transition-all duration-300`}
-              >
-                {/* Card content wrapper with inner glass effect */}
-                <div className="p-5">
-                  {/* Header */}
-                  <div className="flex items-center mb-4">
-                    <div className={`relative w-10 h-10 rounded-full overflow-hidden mr-3 ${
-                      darkMode ? "ring-2 ring-gray-700" : "ring-2 ring-gray-200"
-                    }`}>
-                      <img
-                        src={post.profile_image_url}
-                        className="w-full h-full object-cover"
-                        alt=""
-                        onLoad={(e) => e.target.classList.add("opacity-100")}
-                        style={{ opacity: 0, transition: "opacity 0.3s" }}
-                      />
-                    </div>
-                    <div>
-                      <div className="font-semibold flex items-center">
-                        {post.name}
-                        <span className={`text-xs ml-2 px-2 py-1 rounded-full ${
-                          darkMode 
-                            ? "bg-gray-700 text-gray-300" 
-                            : "bg-gray-200 text-gray-600"
-                        }`}>
-                          {post.platform}
-                        </span>
-                      </div>
-                      <div className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                        {new Date(post.created_at).toLocaleString()}
-                      </div>
-                    </div>
-                  </div>
+  key={post.uniqueId}
+  layoutId={post.uniqueId}
+  variants={cardVariants}
+  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+  className={`backdrop-blur-lg rounded-xl overflow-hidden cursor-pointer ${
+    darkMode 
+      ? "bg-gray-800/40 border border-gray-700/50 shadow-lg shadow-black/20" 
+      : "bg-white/40 border border-white/50 shadow-lg shadow-blue-100/30"
+  } transition-all duration-300`}
+>
+  <a
+    href={post.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block p-5 no-underline hover:no-underline text-inherit"
+  >
+    {/* Card Content */}
+    <div className="flex items-center mb-4">
+      <div className={`relative w-10 h-10 rounded-full overflow-hidden mr-3 ${
+        darkMode ? "ring-2 ring-gray-700" : "ring-2 ring-gray-200"
+      }`}>
+        <img
+          src={post.profile_image_url}
+          className="w-full h-full object-cover"
+          alt=""
+        />
+      </div>
+      <div>
+        <div className="font-semibold flex items-center">
+          {post.name}
+          <span className={`text-xs ml-2 px-2 py-1 rounded-full ${
+            darkMode 
+              ? "bg-gray-700 text-gray-300" 
+              : "bg-gray-200 text-gray-600"
+          }`}>
+            {post.platform}
+          </span>
+        </div>
+        <div className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+          {new Date(post.created_at).toLocaleString()}
+        </div>
+      </div>
+    </div>
 
-                  {/* Content */}
-                  <div className={`mb-4 ${darkMode ? "text-gray-200" : "text-gray-700"}`}>
-                    {post.title && (
-                      <h3 className="font-bold text-lg mb-2">{post.title}</h3>
-                    )}
-                    <p className="whitespace-pre-line line-clamp-4">{post.content}</p>
-                  </div>
+    <div className={`mb-4 ${darkMode ? "text-gray-200" : "text-gray-700"}`}>
+      {post.title && (
+        <h3 className="font-bold text-lg mb-2">{post.title}</h3>
+      )}
+      <p className="whitespace-pre-line line-clamp-4">{post.content}</p>
+    </div>
 
-                  {/* Metrics */}
-                  {post.metrics && (
-                    <div className={`flex flex-wrap gap-3 my-3 px-3 py-2 rounded-lg ${
-                      darkMode ? "bg-gray-700/40" : "bg-gray-100/60"
-                    }`}>
-                      {"score" in post.metrics && (
-                        <span className="flex items-center">
-                          <span className="mr-1">★</span> {post.metrics.score}
-                        </span>
-                      )}
-                      {"comments" in post.metrics && (
-                        <span className="flex items-center">
-                          <span className="mr-1">💬</span> {post.metrics.comments}
-                        </span>
-                      )}
-                      {"like_count" in post.metrics && (
-                        <span className="flex items-center">
-                          <span className="mr-1">❤️</span> {post.metrics.like_count}
-                        </span>
-                      )}
-                      {"reply_count" in post.metrics && (
-                        <span className="flex items-center">
-                          <span className="mr-1">💬</span> {post.metrics.reply_count}
-                        </span>
-                      )}
-                      {"retweet_count" in post.metrics && (
-                        <span className="flex items-center">
-                          <span className="mr-1">🔁</span> {post.metrics.retweet_count}
-                        </span>
-                      )}
-                    </div>
-                  )}
+    {post.metrics && (
+      <div className={`flex flex-wrap gap-3 my-3 px-3 py-2 rounded-lg ${
+        darkMode ? "bg-gray-700/40" : "bg-gray-100/60"
+      }`}>
+        {"score" in post.metrics && (
+          <span className="flex items-center">
+            <span className="mr-1">★</span> {post.metrics.score}
+          </span>
+        )}
+        {"comments" in post.metrics && (
+          <span className="flex items-center">
+            <span className="mr-1">💬</span> {post.metrics.comments}
+          </span>
+        )}
+        {"like_count" in post.metrics && (
+          <span className="flex items-center">
+            <span className="mr-1">❤️</span> {post.metrics.like_count}
+          </span>
+        )}
+        {"reply_count" in post.metrics && (
+          <span className="flex items-center">
+            <span className="mr-1">💬</span> {post.metrics.reply_count}
+          </span>
+        )}
+        {"retweet_count" in post.metrics && (
+          <span className="flex items-center">
+            <span className="mr-1">🔁</span> {post.metrics.retweet_count}
+          </span>
+        )}
+      </div>
+    )}
+  </a>
 
-                  {/* Actions */}
-                  <div className={`flex justify-around mt-4 pt-3 border-t ${
-                    darkMode ? "border-gray-700" : "border-gray-200"
-                  }`}>
-                    <motion.button 
-                      onClick={() => handleSave(post)} 
-                      title="Save"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className={`flex items-center gap-1 px-3 py-1 rounded-full ${
-                        darkMode 
-                          ? "hover:bg-gray-700/70 text-blue-400 hover:text-blue-300" 
-                          : "hover:bg-gray-100/70 text-blue-600 hover:text-blue-700"
-                      }`}
-                    >
-                      <BookmarkIcon className="w-5 h-5" />
-                      <span className="text-sm">Save</span>
-                    </motion.button>
-                    <motion.button 
-                      onClick={() => handleShare(post.url)} 
-                      title="Share"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className={`flex items-center gap-1 px-3 py-1 rounded-full ${
-                        darkMode 
-                          ? "hover:bg-gray-700/70 text-green-400 hover:text-green-300" 
-                          : "hover:bg-gray-100/70 text-green-600 hover:text-green-700"
-                      }`}
-                    >
-                      <ShareIcon className="w-5 h-5" />
-                      <span className="text-sm">Share</span>
-                    </motion.button>
-                    <motion.button 
-                      onClick={() => handleReport(post)} 
-                      title="Report"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className={`flex items-center gap-1 px-3 py-1 rounded-full ${
-                        darkMode 
-                          ? "hover:bg-gray-700/70 text-red-400 hover:text-red-300" 
-                          : "hover:bg-gray-100/70 text-red-600 hover:text-red-700"
-                      }`}
-                    >
-                      <FlagIcon className="w-5 h-5" />
-                      <span className="text-sm">Report</span>
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
+  {/* Post actions remain outside the link to avoid accidental clicks */}
+  <div className={`flex justify-around mt-4 pt-3 border-t ${
+    darkMode ? "border-gray-700" : "border-gray-200"
+  }`}>
+    <motion.button 
+      onClick={() => handleSave(post)} 
+      title="Save"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className={`flex items-center gap-1 px-3 py-1 rounded-full ${
+        darkMode 
+          ? "hover:bg-gray-700/70 text-blue-400 hover:text-blue-300" 
+          : "hover:bg-gray-100/70 text-blue-600 hover:text-blue-700"
+      }`}
+    >
+      <BookmarkIcon className="w-5 h-5" />
+      <span className="text-sm">Save</span>
+    </motion.button>
+    <motion.button 
+      onClick={() => handleShare(post.url)} 
+      title="Share"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className={`flex items-center gap-1 px-3 py-1 rounded-full ${
+        darkMode 
+          ? "hover:bg-gray-700/70 text-green-400 hover:text-green-300" 
+          : "hover:bg-gray-100/70 text-green-600 hover:text-green-700"
+      }`}
+    >
+      <ShareIcon className="w-5 h-5" />
+      <span className="text-sm">Share</span>
+    </motion.button>
+    <motion.button 
+      onClick={() => handleReport(post)} 
+      title="Report"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className={`flex items-center gap-1 px-3 py-1 rounded-full ${
+        darkMode 
+          ? "hover:bg-gray-700/70 text-red-400 hover:text-red-300" 
+          : "hover:bg-gray-100/70 text-red-600 hover:text-red-700"
+      }`}
+    >
+      <FlagIcon className="w-5 h-5" />
+      <span className="text-sm">Report</span>
+    </motion.button>
+  </div>
+</motion.div>
+
             ))}
           </AnimatePresence>
 
