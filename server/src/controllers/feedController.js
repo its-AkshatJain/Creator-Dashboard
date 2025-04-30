@@ -5,23 +5,18 @@ import path from 'path';
 // =============== REDDIT =============== 
 export const fetchRedditPosts = async (req, res) => {
   try {
-    console.log('Fetching Reddit posts...');
-    const userAgent = process.env.REDDIT_USER_AGENT || 'web:myapp:v1.0.0 (by /u/yourusername)';
-    
-    // Log the API request parameters
-    console.log('Sending request to Reddit API with headers:', { 'User-Agent': userAgent });
-    
-    const response = await axios.get('https://www.reddit.com/r/all/top.json', {
-      params: { limit: 10 },
-      headers: { 'User-Agent': userAgent }
+    const after = req.query.after || null;
+    const userAgent = process.env.REDDIT_USER_AGENT || 'CreatorDash/1.0';
+
+    const response = await axios.get('https://oauth.reddit.com/r/all/top.json', {
+      params: {
+        limit: 10,
+        after: after,
+      },
+      headers: { 'User-Agent': userAgent },
     });
 
-    // Log the status code and response data (for debugging)
-    console.log('Reddit API response status:', response.status);
-    console.log('Reddit API response data:', response.data);
-
     if (!response.data?.data?.children) {
-      console.error('Reddit API response does not contain expected "children" data');
       return res.status(500).json({ error: 'Unexpected Reddit API response' });
     }
 
@@ -40,19 +35,17 @@ export const fetchRedditPosts = async (req, res) => {
       }
     }));
 
-    // Log the number of posts retrieved
-    console.log(`Successfully fetched ${posts.length} Reddit posts`);
-
-    res.json(posts);
+    // Send posts along with the "after" token for the next page
+    res.json({
+      posts,
+      after: response.data.data.after,
+    });
   } catch (err) {
     console.error('Error fetching Reddit posts:', err.message);
-
-    // Additional log to capture the full error details
-    console.error('Error details:', err);
-
     res.status(500).json({ error: 'Failed to fetch posts from Reddit' });
   }
 };
+
 
 // =============== TWITTER =============== 
 export const fetchTwitterPosts = async (req, res) => {
@@ -98,6 +91,7 @@ export const fetchTwitterPosts = async (req, res) => {
 
     // absolute path to your fallback file
     const fallbackFile = path.resolve(process.cwd(), 'data', 'sampleTwitter.json');
+    console.log('Fallback file path:', fallbackFile);
     try {
       const fallbackData = JSON.parse(fs.readFileSync(fallbackFile, 'utf-8'));
       return res.json(fallbackData);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useTheme } from "../context/ThemeContext"; // Add this import
+import { useTheme } from "../context/ThemeContext";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -9,14 +9,15 @@ import {
 } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 
-export default function Feed() { // Remove darkMode prop
-  const { darkMode } = useTheme(); // Get darkMode from context
+export default function Feed() {
+  const { darkMode } = useTheme();
   const [feed, setFeed] = useState([]);
+  const [after, setAfter] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [loadedPosts, setLoadedPosts] = useState([]);
   const token = localStorage.getItem("token");
 
-  // Number of skeleton cards to show while loading
   const skeletonCount = 6;
 
   useEffect(() => {
@@ -28,46 +29,88 @@ export default function Feed() { // Remove darkMode prop
           axios.get(`${import.meta.env.VITE_SERVER_URL}/api/feed/twitter`),
         ]);
 
-        // combine and set id for each post
-        const redditPosts = redditRes.data.map(post => ({ ...post, uniqueId: `reddit-${post.id}` }));
-        const twitterPosts = twitterRes.data.map(post => ({ ...post, uniqueId: `twitter-${post.id}` }));
-        
-        // Stable sort by date instead of random
+        const redditPosts = redditRes.data.posts.map((post) => ({
+          ...post,
+          uniqueId: `reddit-${post.id}`,
+        }));
+        const twitterPosts = twitterRes.data.map((post) => ({
+          ...post,
+          uniqueId: `twitter-${post.id}`,
+        }));
+
         const combined = [...redditPosts, ...twitterPosts].sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)
         );
-        
-        // Simulate gradual loading of posts (remove in production if not needed)
+
+        setAfter(redditRes.data.after);
         setFeed(combined);
-        
-        // Load posts gradually to create a smoother experience
+
         let loaded = [];
         const chunkSize = Math.ceil(combined.length / 3);
-        
-        // First batch
+
         loaded = combined.slice(0, chunkSize);
         setLoadedPosts(loaded);
-        
-        // Second batch after a small delay
+
         setTimeout(() => {
           loaded = [...loaded, ...combined.slice(chunkSize, chunkSize * 2)];
           setLoadedPosts(loaded);
-          
-          // Final batch
+
           setTimeout(() => {
             setLoadedPosts(combined);
             setIsLoading(false);
           }, 400);
         }, 300);
-        
       } catch (err) {
         console.error("Feed loading error:", err);
         toast.error("Failed to load feed");
         setIsLoading(false);
       }
     }
+
     loadFeed();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 300 &&
+        !loadingMore &&
+        after
+      ) {
+        loadMore();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [after, loadingMore]);
+
+  const loadMore = async () => {
+    if (loadingMore || !after) return;
+
+    setLoadingMore(true);
+    try {
+      const redditRes = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/feed/reddit`, {
+        params: { after },
+      });
+
+      const newPosts = redditRes.data.posts.map((post) => ({
+        ...post,
+        uniqueId: `reddit-${post.id}`,
+      }));
+
+      setAfter(redditRes.data.after);
+      const updatedFeed = [...feed, ...newPosts].sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+      setFeed(updatedFeed);
+      setLoadedPosts(updatedFeed);
+    } catch (err) {
+      console.error("Error loading more Reddit posts:", err);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   const handleSave = async (post) => {
     try {

@@ -18,8 +18,8 @@ import {
 } from "react-icons/fi";
 import { useTheme } from "../context/ThemeContext";
 
-export default function Navbar() { // Remove props
-  const { darkMode, toggleDarkMode } = useTheme(); // Add this line
+export default function Navbar() {
+  const { darkMode, toggleDarkMode } = useTheme();
   const [open, setOpen] = useState(false);
   const [credits, setCredits] = useState(0);
   const [scrolled, setScrolled] = useState(false);
@@ -43,7 +43,7 @@ export default function Navbar() { // Remove props
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // fetch credits
+  // Fetch credits
   useEffect(() => {
     if (!token) return;
     (async () => {
@@ -115,7 +115,7 @@ export default function Navbar() { // Remove props
             </motion.div>
           </Link>
 
-          {/* desktop links */}
+          {/* desktop links - Only visible if logged in */}
           <div className="hidden md:flex items-center space-x-6">
             {token &&
               links.map((link) => (
@@ -254,7 +254,7 @@ export default function Navbar() { // Remove props
             } backdrop-blur-lg`}
           >
             <div className="px-4 pt-2 pb-4 space-y-3">
-              {links.map((link) => (
+              {token && links.map((link) => (
                 <motion.div
                   key={link.to}
                   whileHover={{ x: 5 }}
@@ -293,22 +293,24 @@ export default function Navbar() { // Remove props
                   </Link>
                 </motion.div>
               )}
-              <motion.div
-                whileHover={{ x: 5 }}
-                className="py-2"
-              >
-                <button
-                  onClick={handleLogout}
-                  className={`flex items-center space-x-3 w-full text-left ${
-                    darkMode 
-                      ? "text-red-400 hover:text-red-300" 
-                      : "text-red-500 hover:text-red-600"
-                  } transition-colors`}
+              {token && (
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  className="py-2"
                 >
-                  <FiX />
-                  <span>Logout</span>
-                </button>
-              </motion.div>
+                  <button
+                    onClick={handleLogout}
+                    className={`flex items-center space-x-3 w-full text-left ${
+                      darkMode 
+                        ? "text-red-400 hover:text-red-300" 
+                        : "text-red-500 hover:text-red-600"
+                    } transition-colors`}
+                  >
+                    <FiX />
+                    <span>Logout</span>
+                  </button>
+                </motion.div>
+              )}
             </div>
           </motion.div>
         )}
