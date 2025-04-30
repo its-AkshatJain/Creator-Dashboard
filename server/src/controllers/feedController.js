@@ -2,16 +2,26 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 
-// =============== REDDIT ===============
+// =============== REDDIT =============== 
 export const fetchRedditPosts = async (req, res) => {
   try {
+    console.log('Fetching Reddit posts...');
     const userAgent = process.env.REDDIT_USER_AGENT || 'web:myapp:v1.0.0 (by /u/yourusername)';
+    
+    // Log the API request parameters
+    console.log('Sending request to Reddit API with headers:', { 'User-Agent': userAgent });
+    
     const response = await axios.get('https://www.reddit.com/r/all/top.json', {
       params: { limit: 10 },
       headers: { 'User-Agent': userAgent }
     });
 
+    // Log the status code and response data (for debugging)
+    console.log('Reddit API response status:', response.status);
+    console.log('Reddit API response data:', response.data);
+
     if (!response.data?.data?.children) {
+      console.error('Reddit API response does not contain expected "children" data');
       return res.status(500).json({ error: 'Unexpected Reddit API response' });
     }
 
@@ -30,14 +40,21 @@ export const fetchRedditPosts = async (req, res) => {
       }
     }));
 
+    // Log the number of posts retrieved
+    console.log(`Successfully fetched ${posts.length} Reddit posts`);
+
     res.json(posts);
   } catch (err) {
     console.error('Error fetching Reddit posts:', err.message);
+
+    // Additional log to capture the full error details
+    console.error('Error details:', err);
+
     res.status(500).json({ error: 'Failed to fetch posts from Reddit' });
   }
 };
 
-// =============== TWITTER ===============
+// =============== TWITTER =============== 
 export const fetchTwitterPosts = async (req, res) => {
   try {
     const response = await axios.get('https://api.twitter.com/2/tweets/search/recent', {
