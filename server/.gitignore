@@ -1,6 +1,9 @@
 # Dependency directories
 node_modules/
 
+# Environment files
+.env
+
 # Build outputs
 dist/
 dist-ssr/
@@ -12,9 +15,6 @@ logs/
 pnpm-debug.log*
 lerna-debug.log*
 
-# Environment files
-.env
-.env.*
 
 # System files
 *.local
