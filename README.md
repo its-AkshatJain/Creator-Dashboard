@@ -93,20 +93,24 @@ npm install
 ### 2. Create `.env` file in the `server/` directory:
 
 ```
+# Server Configuration
 PORT=5000
 JWT_SECRET=your_jwt_secret
-MONGO_URI=mongodb+srv://<your_mongo_connection_string>
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<database>?retryWrites=true&w=majority
 
+# CORS Configuration
 CLIENT_URL=http://localhost:5173
 
-REDDIT_CLIENT_ID=gTPMyZY_mdlyhY91AsNGwQ
-REDDIT_CLIENT_SECRET=oEQC9B3wYG_CBgrK66nx6BjHPRelnQ
-REDDIT_REDIRECT_URI=https://creator-dashboard-2476e.web.app
-REDDIT_USER_AGENT=CreatorDash/1.0
+# Reddit API Credentials
+REDDIT_CLIENT_ID=your_reddit_client_id
+REDDIT_CLIENT_SECRET=your_reddit_client_secret
+REDDIT_REDIRECT_URI=https://your-frontend-url.web.app
+REDDIT_USER_AGENT=your_app_name/1.0
 
+# Twitter API Credentials
 TWITTER_API_KEY=your_twitter_api_key
-TWITTER_API_SECRET_KEY=your_twitter_secret
-TWITTER_BEARER_TOKEN=your_bearer_token
+TWITTER_API_SECRET_KEY=your_twitter_api_secret
+TWITTER_BEARER_TOKEN=your_twitter_bearer_token
 ```
 
 ### 3. Start the server
