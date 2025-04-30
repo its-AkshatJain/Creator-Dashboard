@@ -2,18 +2,45 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 
-// =============== REDDIT =============== 
+// =============== REDDIT AUTH ===============
+const getRedditAppAccessToken = async () => {
+  const credentials = Buffer.from(
+    `${process.env.REDDIT_CLIENT_ID}:${process.env.REDDIT_CLIENT_SECRET}`
+  ).toString('base64');
+
+  const response = await axios.post(
+    'https://www.reddit.com/api/v1/access_token',
+    'grant_type=client_credentials',
+    {
+      headers: {
+        'Authorization': `Basic ${credentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': process.env.REDDIT_USER_AGENT || 'CreatorDash/1.0',
+      },
+    }
+  );
+
+  return response.data.access_token;
+};
+
+// =============== REDDIT POSTS ===============
 export const fetchRedditPosts = async (req, res) => {
   try {
     const after = req.query.after || null;
     const userAgent = process.env.REDDIT_USER_AGENT || 'CreatorDash/1.0';
 
-    const response = await axios.get('https://oauth.reddit.com/r/all/top.json', {
+    // 🔐 Get OAuth token
+    const token = await getRedditAppAccessToken();
+
+    const response = await axios.get('https://oauth.reddit.com/r/all/top', {
       params: {
         limit: 10,
         after: after,
+    },
+      headers: {
+        'User-Agent': userAgent,
+        'Authorization': `Bearer ${token}`,
       },
-      headers: { 'User-Agent': userAgent },
     });
 
     if (!response.data?.data?.children) {
@@ -31,21 +58,19 @@ export const fetchRedditPosts = async (req, res) => {
       created_at: new Date(item.data.created_utc * 1000).toISOString(),
       metrics: {
         score: item.data.score,
-        comments: item.data.num_comments
-      }
+        comments: item.data.num_comments,
+      },
     }));
 
-    // Send posts along with the "after" token for the next page
     res.json({
       posts,
       after: response.data.data.after,
     });
   } catch (err) {
-    console.error('Error fetching Reddit posts:', err.message);
+    console.error('Error fetching Reddit posts:', err.response?.data || err.message);
     res.status(500).json({ error: 'Failed to fetch posts from Reddit' });
   }
 };
-
 
 // =============== TWITTER =============== 
 export const fetchTwitterPosts = async (req, res) => {
