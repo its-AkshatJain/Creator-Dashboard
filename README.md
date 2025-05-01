@@ -4,11 +4,12 @@ CreatorDash is a web-based application that pulls **public data** from the **Red
 
 ## Features
 
-- Fetch Reddit data (subreddits, posts, comments, and user info)
-- Fetch Twitter data (tweets, followers, user profiles)
+- Fetch Reddit data (subreddits, posts, likes, and user info)
+- Fetch Twitter data
 - Visualize fetched data for insights
 - Deployed frontend and backend
-- No user login required (uses app-level access to public APIs)
+- No user login required in Reddit or Twitter just login in this app(uses app-level access to public APIs)
+- Gain Credits by completing profiles, daily login and saving or reporting posts.
 
 ## Live Demo
 
