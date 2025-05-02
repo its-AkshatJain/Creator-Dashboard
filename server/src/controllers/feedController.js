@@ -4,23 +4,46 @@ import path from 'path';
 
 // =============== REDDIT AUTH ===============
 const getRedditAppAccessToken = async () => {
-  const credentials = Buffer.from(
-    `${process.env.REDDIT_CLIENT_ID}:${process.env.REDDIT_CLIENT_SECRET}`
-  ).toString('base64');
+  try {
+    const credentials = Buffer.from(
+      `${process.env.REDDIT_CLIENT_ID}:${process.env.REDDIT_CLIENT_SECRET}`
+    ).toString('base64');
 
-  const response = await axios.post(
-    'https://www.reddit.com/api/v1/access_token',
-    'grant_type=client_credentials',
-    {
-      headers: {
-        'Authorization': `Basic ${credentials}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': process.env.REDDIT_USER_AGENT || 'CreatorDash/1.0',
-      },
+    const response = await axios.post(
+      'https://www.reddit.com/api/v1/access_token',
+      'grant_type=client_credentials',
+      {
+        headers: {
+          'Authorization': `Basic ${credentials}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': process.env.REDDIT_USER_AGENT || 'CreatorDash/1.0',
+        },
+      }
+    );
+
+    return response.data.access_token;
+  } catch (err) {
+    console.error("❌ Error fetching Reddit access token:");
+    console.error("Status:", err.response?.status);
+
+    if (err.response) {
+      const contentType = err.response.headers['content-type'];
+      const isJSON = contentType && contentType.includes('application/json');
+    
+      console.error('❌ Reddit API Error');
+      console.error('Status:', err.response.status);
+      console.error('Headers:', err.response.headers);
+      if (isJSON) {
+        console.error('Data:', err.response.data);
+      } else {
+        console.error('Non-JSON response body omitted from logs');
+      }
+    } else {
+      console.error('❌ Request failed without response:', err.message);
     }
-  );
-
-  return response.data.access_token;
+    
+    throw err;
+  }
 };
 
 // =============== REDDIT POSTS ===============
@@ -36,15 +59,22 @@ export const fetchRedditPosts = async (req, res) => {
       params: {
         limit: 10,
         after: after,
-    },
+      },
       headers: {
         'User-Agent': userAgent,
         'Authorization': `Bearer ${token}`,
       },
     });
 
+    // Check if response is JSON
+    const contentType = response.headers['content-type'];
+    if (!contentType?.includes('application/json')) {
+      console.error('❌ Reddit API returned non-JSON:', contentType);
+      return res.status(502).json({ error: 'Reddit API returned non-JSON response' });
+    }
+
     if (!response.data?.data?.children) {
-      return res.status(500).json({ error: 'Unexpected Reddit API response' });
+      return res.status(500).json({ error: 'Unexpected Reddit API structure' });
     }
 
     const posts = response.data.data.children.map((item) => ({
@@ -67,12 +97,22 @@ export const fetchRedditPosts = async (req, res) => {
       after: response.data.data.after,
     });
   } catch (err) {
-    console.error('Error fetching Reddit posts:', err.response?.data || err.message);
-    res.status(500).json({ error: 'Failed to fetch posts from Reddit' });
+    console.warn('⚠️ Reddit API failed:', err.message);
+
+    const fallbackFile = path.resolve(process.cwd(), 'data', 'sampleReddit.json');
+    console.log('Using fallback file at:', fallbackFile);
+
+    try {
+      const fallbackData = JSON.parse(fs.readFileSync(fallbackFile, 'utf-8'));
+      return res.json(fallbackData);
+    } catch (readErr) {
+      console.error('❌ Fallback data file not found or invalid:', readErr.message);
+      return res.status(500).json({ error: 'Reddit API and fallback both failed' });
+    }
   }
 };
 
-// =============== TWITTER =============== 
+// =============== TWITTER POSTS ===============
 export const fetchTwitterPosts = async (req, res) => {
   try {
     const response = await axios.get('https://api.twitter.com/2/tweets/search/recent', {
@@ -112,16 +152,16 @@ export const fetchTwitterPosts = async (req, res) => {
 
     res.json(tweets);
   } catch (err) {
-    console.warn('Twitter API failed:', err.message);
+    console.warn('⚠️ Twitter API failed:', err.message);
 
-    // absolute path to your fallback file
     const fallbackFile = path.resolve(process.cwd(), 'data', 'sampleTwitter.json');
-    console.log('Fallback file path:', fallbackFile);
+    console.log('Using fallback file at:', fallbackFile);
+
     try {
       const fallbackData = JSON.parse(fs.readFileSync(fallbackFile, 'utf-8'));
       return res.json(fallbackData);
     } catch (readErr) {
-      console.error('Fallback data file not found or invalid JSON:', readErr.message);
+      console.error('❌ Fallback data file not found or invalid:', readErr.message);
       return res.status(500).json({ error: 'Twitter API and fallback both failed' });
     }
   }

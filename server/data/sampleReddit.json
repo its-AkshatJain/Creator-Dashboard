@@ -1,0 +1,146 @@
+{
+    "posts": [
+      {
+        "id": "a1b2c3",
+        "platform": "Reddit",
+        "title": "How to improve your productivity while working from home?",
+        "content": "Working from home can be great, but it comes with its own challenges. Here are some tips to boost your productivity and stay focused...",
+        "author": "productivity_guru",
+        "url": "https://www.reddit.com/r/Productivity/comments/a1b2c3/how_to_improve_your_productivity_while_working_from_home/",
+        "image": "https://example.com/images/productivity.jpg",
+        "created_at": "2025-04-27T08:45:00Z",
+        "metrics": {
+          "score": 120,
+          "comments": 35
+        }
+      },
+      {
+        "id": "d4e5f6",
+        "platform": "Reddit",
+        "title": "The best hiking trails in Colorado",
+        "content": "I recently explored some amazing hiking trails in Colorado. If you're into nature and stunning views, these are a must-see...",
+        "author": "adventure_lover",
+        "url": "https://www.reddit.com/r/Outdoors/comments/d4e5f6/the_best_hiking_trails_in_colorado/",
+        "image": "https://example.com/images/hiking.jpg",
+        "created_at": "2025-04-26T16:30:00Z",
+        "metrics": {
+          "score": 250,
+          "comments": 70
+        }
+      },
+      {
+        "id": "g7h8i9",
+        "platform": "Reddit",
+        "title": "What are the best productivity apps in 2025?",
+        "content": "With so many productivity apps available, it’s tough to know which one is best. Here are my top recommendations for 2025...",
+        "author": "techenthusiast",
+        "url": "https://www.reddit.com/r/Technology/comments/g7h8i9/what_are_the_best_productivity_apps_in_2025/",
+        "image": "https://example.com/images/apps.jpg",
+        "created_at": "2025-04-25T10:15:00Z",
+        "metrics": {
+          "score": 90,
+          "comments": 22
+        }
+      },
+      {
+        "id": "j0k1l2",
+        "platform": "Reddit",
+        "title": "How to create an amazing DIY home project",
+        "content": "DIY projects are a fun way to spend your time and create something useful. Here’s a guide to building your own wooden bookshelf...",
+        "author": "home_decorator",
+        "url": "https://www.reddit.com/r/HomeImprovement/comments/j0k1l2/how_to_create_an_amazing_diy_home_project/",
+        "image": "https://example.com/images/diy.jpg",
+        "created_at": "2025-04-24T14:00:00Z",
+        "metrics": {
+          "score": 180,
+          "comments": 45
+        }
+      },
+      {
+        "id": "m3n4o5",
+        "platform": "Reddit",
+        "title": "Is electric car technology really sustainable?",
+        "content": "As electric cars become more popular, many are wondering if the technology is truly sustainable. I’ve done some research and have shared my thoughts...",
+        "author": "eco_fanatic",
+        "url": "https://www.reddit.com/r/Environment/comments/m3n4o5/is_electric_car_technology_really_sustainable/",
+        "image": "https://example.com/images/electric_car.jpg",
+        "created_at": "2025-04-23T19:00:00Z",
+        "metrics": {
+          "score": 300,
+          "comments": 100
+        }
+      },
+      {
+        "id": "p6q7r8",
+        "platform": "Reddit",
+        "title": "The future of AI in healthcare",
+        "content": "Artificial intelligence is revolutionizing the healthcare industry. Here are the top AI applications that will shape the future of healthcare...",
+        "author": "future_visionary",
+        "url": "https://www.reddit.com/r/HealthTech/comments/p6q7r8/the_future_of_ai_in_healthcare/",
+        "image": "https://example.com/images/ai_healthcare.jpg",
+        "created_at": "2025-04-22T11:15:00Z",
+        "metrics": {
+          "score": 150,
+          "comments": 40
+        }
+      },
+      {
+        "id": "s9t0u1",
+        "platform": "Reddit",
+        "title": "Best strategies for personal finance in your 30s",
+        "content": "Navigating personal finance in your 30s can be challenging. I’ve compiled the best strategies that will set you up for financial success...",
+        "author": "finance_wizard",
+        "url": "https://www.reddit.com/r/PersonalFinance/comments/s9t0u1/best_strategies_for_personal_finance_in_your_30s/",
+        "image": "https://example.com/images/finance.jpg",
+        "created_at": "2025-04-21T15:00:00Z",
+        "metrics": {
+          "score": 200,
+          "comments": 65
+        }
+      },
+      {
+        "id": "v2w3x4",
+        "platform": "Reddit",
+        "title": "Tips for a successful freelance career",
+        "content": "Freelancing is becoming more popular, but it comes with its own challenges. Here are the best tips for building a successful freelance career...",
+        "author": "freelance_expert",
+        "url": "https://www.reddit.com/r/Freelance/comments/v2w3x4/tips_for_a_successful_freelance_career/",
+        "image": "https://example.com/images/freelance.jpg",
+        "created_at": "2025-04-20T09:30:00Z",
+        "metrics": {
+          "score": 110,
+          "comments": 40
+        }
+      },
+      {
+        "id": "y5z6a7",
+        "platform": "Reddit",
+        "title": "Understanding mental health and its importance",
+        "content": "Mental health is often overlooked, but it’s just as important as physical health. Let’s talk about how to take care of your mental well-being...",
+        "author": "mental_health_advocate",
+        "url": "https://www.reddit.com/r/MentalHealth/comments/y5z6a7/understanding_mental_health_and_its_importance/",
+        "image": "https://example.com/images/mental_health.jpg",
+        "created_at": "2025-04-19T17:45:00Z",
+        "metrics": {
+          "score": 250,
+          "comments": 80
+        }
+      },
+      {
+        "id": "b8c9d0",
+        "platform": "Reddit",
+        "title": "Best video games of 2025 so far",
+        "content": "2025 has been an exciting year for video games! Here are the top games that have been released so far this year...",
+        "author": "gamer_enthusiast",
+        "url": "https://www.reddit.com/r/gaming/comments/b8c9d0/best_video_games_of_2025_so_far/",
+        "image": "https://example.com/images/gaming.jpg",
+        "created_at": "2025-04-18T10:00:00Z",
+        "metrics": {
+          "score": 300,
+          "comments": 120
+        }
+      }
+    ],
+    "after": null
+  }
+  
